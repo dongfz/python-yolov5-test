@@ -43,9 +43,13 @@ class TrainingFactory:
 if __name__ == '__main__':
     x = 'EfficientNet'
 
+    model_type = None
     for e in EModelType:
         if e.name.lower().__contains__(x.lower()):
-            print(e.value)
+            model_type = e
 
-    service = TrainingFactory.new_instance(model_type=EModelType.YoloV5)
+    if model_type is None:
+        raise Exception('service not found.')
+
+    service = TrainingFactory.new_instance(model_type=model_type)
     service.train()
